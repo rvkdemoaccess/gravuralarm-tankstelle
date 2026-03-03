@@ -44,9 +44,11 @@
 
     .preview-wrap { display: none; border-radius: 14px; overflow: hidden; }
     .preview-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
-    .change-row { display: flex; gap: 8px; padding: 10px; background: var(--cream); }
-    .change-row button { flex: 1; background: white; border: 2px solid var(--cream-dark); border-radius: 10px; padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--ink); transition: border-color 0.2s; }
+    .change-row { display: flex; gap: 8px; padding: 10px; background: var(--cream); flex-wrap: wrap; }
+    .change-row button { flex: 1; min-width: 80px; background: white; border: 2px solid var(--cream-dark); border-radius: 10px; padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--ink); transition: border-color 0.2s; }
     .change-row button:hover { border-color: var(--gold); }
+    .delete-btn { background: #fff0f0 !important; border-color: #ffcccc !important; color: var(--red) !important; }
+    .delete-btn:hover { border-color: var(--red) !important; }
     #cameraChangeInput, #galleryChangeInput { display: none; }
 
     .field { margin-bottom: 12px; }
@@ -58,10 +60,10 @@
     .char-hint { text-align: right; font-size: 11px; color: #ccc; margin-top: 4px; font-weight: 600; }
 
     .option-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-    .option-btn { flex: 1; min-width: 80px; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 12px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: var(--ink); }
+    .option-btn { flex: 1; min-width: 80px; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 12px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: var(--ink); font-family: 'Nunito', sans-serif; font-weight: 700; }
     .option-btn.active { border-color: var(--gold); background: #fff8e0; }
     .opt-preview { font-size: 18px; display: block; margin-bottom: 4px; }
-    .opt-label { font-size: 11px; color: var(--gray); font-family: 'Nunito', sans-serif; display: block; }
+    .opt-label { font-size: 11px; color: var(--gray); font-family: 'Nunito', sans-serif; display: block; font-weight: 600; }
     .font-normal .opt-preview { font-family: 'Nunito', sans-serif; font-weight: 700; }
     .font-script .opt-preview { font-family: 'Dancing Script', cursive; }
     .font-bold .opt-preview { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
@@ -73,7 +75,6 @@
     .color-btn.active { border-color: var(--gold); }
     .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); flex-shrink: 0; }
 
-    /* Comic Toggle */
     .comic-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 14px 16px; cursor: pointer; transition: all 0.2s; }
     .comic-toggle.active { border-color: var(--gold); background: #fff8e0; }
     .comic-toggle-left { display: flex; align-items: center; gap: 12px; }
@@ -85,21 +86,14 @@
     .toggle-switch::after { content: ''; position: absolute; width: 18px; height: 18px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
     .toggle-switch.on::after { left: 23px; }
 
-    /* Canvas / Zoom */
     .preview-card { display: none; }
     .preview-label { font-size: 12px; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
-
-    .canvas-container {
-      position: relative; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      background: white; touch-action: none;
-      cursor: grab;
-    }
+    .canvas-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); background: white; touch-action: none; cursor: grab; user-select: none; }
     .canvas-container:active { cursor: grabbing; }
     #mugCanvas { width: 100%; display: block; }
 
     .zoom-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-    .zoom-btn { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--cream-dark); background: var(--cream); font-size: 18px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); flex-shrink: 0; transition: border-color 0.2s; }
+    .zoom-btn { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--cream-dark); background: var(--cream); font-size: 18px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); flex-shrink: 0; transition: border-color 0.2s; font-family: 'Nunito', sans-serif; }
     .zoom-btn:hover { border-color: var(--gold); }
     .zoom-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; background: var(--cream-dark); outline: none; }
     .zoom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--gold); cursor: pointer; }
@@ -172,6 +166,7 @@
         <div class="change-row">
           <button onclick="document.getElementById('cameraChangeInput').click()">📷 Neu aufnehmen</button>
           <button onclick="document.getElementById('galleryChangeInput').click()">🖼️ Anderes Foto</button>
+          <button class="delete-btn" onclick="deletePhoto()">🗑️ Löschen</button>
         </div>
         <input type="file" id="cameraChangeInput" accept="image/*" capture="environment">
         <input type="file" id="galleryChangeInput" accept="image/*">
@@ -246,9 +241,9 @@
         <canvas id="mugCanvas" width="960" height="430"></canvas>
       </div>
       <div class="zoom-controls">
-        <button class="zoom-btn" onclick="adjustZoom(-0.1)">−</button>
+        <button class="zoom-btn" onclick="adjustZoom(-0.15)">−</button>
         <input type="range" class="zoom-slider" id="zoomSlider" min="1" max="3" step="0.05" value="1" oninput="setZoom(parseFloat(this.value))">
-        <button class="zoom-btn" onclick="adjustZoom(0.1)">+</button>
+        <button class="zoom-btn" onclick="adjustZoom(0.15)">+</button>
       </div>
       <p class="zoom-hint">🤏 Zoomen & ziehen um den Bildausschnitt zu wählen</p>
     </div>
@@ -286,20 +281,35 @@
     let selectedFont = 'normal';
     let selectedSize = 'small';
     let selectedColor = 'black';
-
-    // Zoom & Pan state
-    let zoom = 1;
-    let panX = 0, panY = 0;
-    let isDragging = false;
-    let lastX = 0, lastY = 0;
-    let lastDist = 0;
+    let zoom = 1, panX = 0, panY = 0;
+    let isDragging = false, lastX = 0, lastY = 0, lastDist = 0;
     let originalImage = null;
 
     const FONTS = {
-      normal: { family: 'Nunito', weight: '700', css: "'Nunito', sans-serif" },
-      script: { family: 'Dancing Script', weight: '700', css: "'Dancing Script', cursive" },
-      bold:   { family: 'Bebas Neue', weight: '400', css: "'Bebas Neue', sans-serif" }
+      normal: { weight: '700', css: "'Nunito', sans-serif" },
+      script: { weight: '700', css: "'Dancing Script', cursive" },
+      bold:   { weight: '400', css: "'Bebas Neue', sans-serif" }
     };
+
+    // ── Foto löschen ───────────────────────────────────────────────
+    function deletePhoto() {
+      selectedFile = null;
+      originalImage = null;
+      zoom = 1; panX = 0; panY = 0;
+      document.getElementById('zoomSlider').value = 1;
+      document.getElementById('photoPreview').src = '';
+      document.getElementById('previewWrap').style.display = 'none';
+      document.getElementById('uploadButtons').style.display = 'grid';
+      document.getElementById('previewCard').style.display = 'none';
+      document.getElementById('nameInput').value = '';
+      document.getElementById('line2Input').value = '';
+      document.getElementById('nameCount').textContent = '0';
+      document.getElementById('line2Count').textContent = '0';
+      // Comic zurücksetzen
+      comicEnabled = false;
+      document.getElementById('comicToggle').classList.remove('active');
+      document.getElementById('toggleSwitch').classList.remove('on');
+    }
 
     // ── Comic Toggle ───────────────────────────────────────────────
     function toggleComic() {
@@ -333,28 +343,24 @@
     function adjustZoom(delta) {
       zoom = Math.max(1, Math.min(3, zoom + delta));
       document.getElementById('zoomSlider').value = zoom;
-      clampPan();
-      updatePreview();
+      clampPan(); updatePreview();
     }
-    function setZoom(val) {
-      zoom = val;
-      clampPan();
-      updatePreview();
-    }
+    function setZoom(val) { zoom = val; clampPan(); updatePreview(); }
     function clampPan() {
       const canvas = document.getElementById('mugCanvas');
       const W = canvas.width, H = canvas.height;
       const PAD = Math.round(H * 0.08);
       const IMG_H = H - PAD * 2;
-      const maxPanX = (W * zoom - W) / 2;
-      const maxPanY = (IMG_H * zoom - IMG_H) / 2;
-      panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
-      panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+      const baseScale = originalImage ? Math.min(W / originalImage.width, IMG_H / originalImage.height) : 1;
+      const scaledW = originalImage ? originalImage.width * baseScale * zoom : W * zoom;
+      const scaledH = originalImage ? originalImage.height * baseScale * zoom : IMG_H * zoom;
+      panX = Math.max(-(scaledW - W) / 2, Math.min((scaledW - W) / 2, panX));
+      panY = Math.max(-(scaledH - IMG_H) / 2, Math.min((scaledH - IMG_H) / 2, panY));
     }
 
     // Touch/Mouse drag
     const container = document.getElementById('canvasContainer');
-    container.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; });
+    container.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; e.preventDefault(); });
     window.addEventListener('mousemove', e => {
       if (!isDragging) return;
       panX += e.clientX - lastX; panY += e.clientY - lastY;
@@ -362,10 +368,9 @@
       clampPan(); updatePreview();
     });
     window.addEventListener('mouseup', () => isDragging = false);
-
     container.addEventListener('touchstart', e => {
       if (e.touches.length === 1) { isDragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
-      if (e.touches.length === 2) { lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
+      if (e.touches.length === 2) lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
     }, { passive: true });
     container.addEventListener('touchmove', e => {
       if (e.touches.length === 1 && isDragging) {
@@ -432,38 +437,62 @@
       updatePreview();
     });
 
-    // ── Comic Filter (Canvas) ──────────────────────────────────────
-    function applyComicFilter(ctx, W, H) {
-      const imageData = ctx.getImageData(0, 0, W, H);
+    // ── Comic Filter ───────────────────────────────────────────────
+    // Sauberer Comic-Effekt: Bilateral-ähnliche Vereinfachung + starke Kanten
+    function applyComicFilter(ctx, W, H, PAD) {
+      const imageData = ctx.getImageData(0, PAD, W, H - PAD * 2);
       const data = imageData.data;
-      // Sättigung erhöhen + Posterize (Farben vereinfachen)
-      for (let i = 0; i < data.length; i += 4) {
-        // Posterize auf 4 Stufen
-        data[i]   = Math.round(data[i]   / 64) * 64;
-        data[i+1] = Math.round(data[i+1] / 64) * 64;
-        data[i+2] = Math.round(data[i+2] / 64) * 64;
-      }
-      ctx.putImageData(imageData, 0, 0);
+      const w = W, h = H - PAD * 2;
 
-      // Kanten als schwarze Linien (Edge detection vereinfacht)
-      const edgeData = ctx.getImageData(0, 0, W, H);
+      // Schritt 1: Sättigung stark erhöhen
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        const l = (max + min) / 2;
+        if (max !== min) {
+          const s = l > 127 ? (max - min) / (510 - max - min) : (max - min) / (max + min);
+          const boost = Math.min(s * 2.5, 1);
+          const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+          data[i]   = Math.min(255, gray + (r - gray) * boost * 2.2);
+          data[i+1] = Math.min(255, gray + (g - gray) * boost * 2.2);
+          data[i+2] = Math.min(255, gray + (b - gray) * boost * 2.2);
+        }
+      }
+
+      // Schritt 2: Posterize auf 5 Stufen für flächige Farben
+      for (let i = 0; i < data.length; i += 4) {
+        data[i]   = Math.round(data[i]   / 51) * 51;
+        data[i+1] = Math.round(data[i+1] / 51) * 51;
+        data[i+2] = Math.round(data[i+2] / 51) * 51;
+      }
+
+      ctx.putImageData(imageData, 0, PAD);
+
+      // Schritt 3: Kanten erkennen und als saubere schwarze Linien zeichnen
+      const edgeData = ctx.getImageData(0, PAD, W, H - PAD * 2);
       const orig = new Uint8ClampedArray(edgeData.data);
-      for (let y = 1; y < H - 1; y++) {
-        for (let x = 1; x < W - 1; x++) {
-          const i = (y * W + x) * 4;
-          const iUp = ((y-1) * W + x) * 4;
-          const iDown = ((y+1) * W + x) * 4;
-          const iLeft = (y * W + (x-1)) * 4;
-          const iRight = (y * W + (x+1)) * 4;
-          const gx = Math.abs(orig[iRight] - orig[iLeft]) + Math.abs(orig[iRight+1] - orig[iLeft+1]) + Math.abs(orig[iRight+2] - orig[iLeft+2]);
-          const gy = Math.abs(orig[iDown] - orig[iUp]) + Math.abs(orig[iDown+1] - orig[iUp+1]) + Math.abs(orig[iDown+2] - orig[iUp+2]);
-          const edge = (gx + gy) / 3;
-          if (edge > 80) {
-            edgeData.data[i] = 0; edgeData.data[i+1] = 0; edgeData.data[i+2] = 0; edgeData.data[i+3] = 200;
+      const result = new Uint8ClampedArray(edgeData.data);
+
+      for (let y = 2; y < h - 2; y++) {
+        for (let x = 2; x < w - 2; x++) {
+          const i = (y * w + x) * 4;
+          // Grauwerte der Nachbarn für Sobel
+          const gray = (px) => 0.299 * orig[px] + 0.587 * orig[px+1] + 0.114 * orig[px+2];
+          const g = (dx, dy) => gray(((y+dy) * w + (x+dx)) * 4);
+          const gx = -g(-1,-1) - 2*g(-1,0) - g(-1,1) + g(1,-1) + 2*g(1,0) + g(1,1);
+          const gy = -g(-1,-1) - 2*g(0,-1) - g(1,-1) + g(-1,1) + 2*g(0,1) + g(1,1);
+          const edge = Math.sqrt(gx*gx + gy*gy);
+          if (edge > 60) {
+            const strength = Math.min(1, (edge - 60) / 120);
+            result[i]   = Math.round(orig[i]   * (1 - strength));
+            result[i+1] = Math.round(orig[i+1] * (1 - strength));
+            result[i+2] = Math.round(orig[i+2] * (1 - strength));
+            result[i+3] = 255;
           }
         }
       }
-      ctx.putImageData(edgeData, 0, 0);
+      edgeData.data.set(result);
+      ctx.putImageData(edgeData, 0, PAD);
     }
 
     // ── Canvas Preview ─────────────────────────────────────────────
@@ -479,7 +508,6 @@
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, W, H);
 
-      // Bild mit Zoom & Pan zeichnen
       const baseScale = Math.min(W / originalImage.width, IMG_H / originalImage.height);
       const scale = baseScale * zoom;
       const dw = originalImage.width * scale;
@@ -488,19 +516,13 @@
       const dy = PAD + (IMG_H - dh) / 2 + panY;
 
       ctx.save();
+      ctx.beginPath();
       ctx.rect(0, PAD, W, IMG_H);
       ctx.clip();
-      ctx.drawImage(originalImage, 0, 0, originalImage.width, originalImage.height, dx, dy, dw, dh);
+      ctx.drawImage(originalImage, dx, dy, dw, dh);
       ctx.restore();
 
-      // Comic Filter
-      if (comicEnabled) {
-        ctx.save();
-        ctx.rect(0, PAD, W, IMG_H);
-        ctx.clip();
-        applyComicFilter(ctx, W, H);
-        ctx.restore();
-      }
+      if (comicEnabled) applyComicFilter(ctx, W, H, PAD);
 
       // Text
       const name = document.getElementById('nameInput').value.trim();
@@ -519,31 +541,16 @@
       }
     }
 
-    // ── Submit ─────────────────────────────────────────────────────
+    // ── Submit – schickt Canvas-Inhalt direkt ──────────────────────
     async function submitOrder() {
       if (!selectedFile) { showError('Bitte zuerst ein Foto auswählen! 📸'); return; }
       hideError();
-
-      // Canvas als Blob exportieren – enthält exakt was der Kunde sieht
       const canvas = document.getElementById('mugCanvas');
       canvas.toBlob(async (blob) => {
         document.getElementById('loadingOverlay').classList.add('visible');
         document.getElementById('submitBtn').disabled = true;
-
         const formData = new FormData();
         formData.append('photo', blob, 'tasse.png');
-        formData.append('name', document.getElementById('nameInput').value.trim());
-        formData.append('line2', document.getElementById('line2Input').value.trim());
-        formData.append('font', selectedFont);
-        formData.append('fontSize', selectedSize);
-        formData.append('fontColor', selectedColor);
-        formData.append('comic', comicEnabled ? '1' : '0');
-        formData.append('zoom', zoom.toString());
-        formData.append('panX', panX.toString());
-        formData.append('panY', panY.toString());
-        formData.append('canvasWidth', canvas.width.toString());
-        formData.append('canvasHeight', canvas.height.toString());
-
         try {
           const res = await fetch(`${PRINTER_URL}/upload`, { method: 'POST', body: formData, signal: AbortSignal.timeout(30000) });
           const data = await res.json();
