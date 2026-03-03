@@ -33,7 +33,7 @@
     .card-number { position: absolute; top: -12px; left: 18px; background: var(--red); color: white; font-weight: 800; font-size: 11px; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
     .card-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 14px; }
 
-    .upload-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+    .upload-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .upload-btn { position: relative; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.2s; overflow: hidden; }
     .upload-btn:hover { border-color: var(--gold); background: #fff8e0; }
     .upload-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
@@ -48,7 +48,6 @@
     .change-row button { flex: 1; min-width: 80px; background: white; border: 2px solid var(--cream-dark); border-radius: 10px; padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--ink); transition: border-color 0.2s; }
     .change-row button:hover { border-color: var(--gold); }
     .delete-btn { background: #fff0f0 !important; border-color: #ffcccc !important; color: var(--red) !important; }
-    .delete-btn:hover { border-color: var(--red) !important; }
     #cameraChangeInput, #galleryChangeInput { display: none; }
 
     .field { margin-bottom: 12px; }
@@ -75,21 +74,9 @@
     .color-btn.active { border-color: var(--gold); }
     .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); flex-shrink: 0; }
 
-    .comic-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 14px 16px; cursor: pointer; transition: all 0.2s; }
-    .comic-toggle.active { border-color: var(--gold); background: #fff8e0; }
-    .comic-toggle-left { display: flex; align-items: center; gap: 12px; }
-    .comic-toggle-icon { font-size: 28px; }
-    .comic-toggle-text strong { display: block; font-size: 14px; font-weight: 800; color: var(--ink); }
-    .comic-toggle-text span { font-size: 11px; color: var(--gray); font-weight: 600; }
-    .toggle-switch { width: 44px; height: 24px; background: #ddd; border-radius: 12px; position: relative; transition: background 0.2s; flex-shrink: 0; }
-    .toggle-switch.on { background: var(--gold); }
-    .toggle-switch::after { content: ''; position: absolute; width: 18px; height: 18px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
-    .toggle-switch.on::after { left: 23px; }
-
     .preview-card { display: none; }
     .preview-label { font-size: 12px; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
-    .canvas-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); background: white; touch-action: none; cursor: grab; user-select: none; }
-    .canvas-container:active { cursor: grabbing; }
+    .canvas-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); background: white; touch-action: none; cursor: ns-resize; user-select: none; }
     #mugCanvas { width: 100%; display: block; }
 
     .zoom-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
@@ -174,22 +161,7 @@
     </div>
 
     <div class="card">
-      <div class="card-number">Schritt 2 · Stil wählen</div>
-      <p class="card-title">🎨 Bildstil</p>
-      <div class="comic-toggle" id="comicToggle" onclick="toggleComic()">
-        <div class="comic-toggle-left">
-          <div class="comic-toggle-icon">💥</div>
-          <div class="comic-toggle-text">
-            <strong>Comic-Style</strong>
-            <span>Verwandelt dein Foto in einen Comic</span>
-          </div>
-        </div>
-        <div class="toggle-switch" id="toggleSwitch"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-number">Schritt 3 · Personalisierung</div>
+      <div class="card-number">Schritt 2 · Personalisierung</div>
       <p class="card-title">✍️ Text auf die Tasse (optional)</p>
       <div class="field">
         <label>Name</label>
@@ -245,7 +217,7 @@
         <input type="range" class="zoom-slider" id="zoomSlider" min="1" max="3" step="0.05" value="1" oninput="setZoom(parseFloat(this.value))">
         <button class="zoom-btn" onclick="adjustZoom(0.15)">+</button>
       </div>
-      <p class="zoom-hint">🤏 Zoomen & ziehen um den Bildausschnitt zu wählen</p>
+      <p class="zoom-hint">↕️ Zoomen & nach oben/unten ziehen um den Bildausschnitt zu wählen</p>
     </div>
 
     <div class="error-msg" id="errorMsg"></div>
@@ -277,12 +249,11 @@
     const PRINTER_URL = 'https://gravuralarm.ngrok.app';
 
     let selectedFile = null;
-    let comicEnabled = false;
     let selectedFont = 'normal';
     let selectedSize = 'small';
     let selectedColor = 'black';
-    let zoom = 1, panX = 0, panY = 0;
-    let isDragging = false, lastX = 0, lastY = 0, lastDist = 0;
+    let zoom = 1, panY = 0;
+    let isDragging = false, lastY = 0, lastDist = 0;
     let originalImage = null;
 
     const FONTS = {
@@ -293,9 +264,8 @@
 
     // ── Foto löschen ───────────────────────────────────────────────
     function deletePhoto() {
-      selectedFile = null;
-      originalImage = null;
-      zoom = 1; panX = 0; panY = 0;
+      selectedFile = null; originalImage = null;
+      zoom = 1; panY = 0;
       document.getElementById('zoomSlider').value = 1;
       document.getElementById('photoPreview').src = '';
       document.getElementById('previewWrap').style.display = 'none';
@@ -305,85 +275,69 @@
       document.getElementById('line2Input').value = '';
       document.getElementById('nameCount').textContent = '0';
       document.getElementById('line2Count').textContent = '0';
-      // Comic zurücksetzen
-      comicEnabled = false;
-      document.getElementById('comicToggle').classList.remove('active');
-      document.getElementById('toggleSwitch').classList.remove('on');
-    }
-
-    // ── Comic Toggle ───────────────────────────────────────────────
-    function toggleComic() {
-      comicEnabled = !comicEnabled;
-      document.getElementById('comicToggle').classList.toggle('active', comicEnabled);
-      document.getElementById('toggleSwitch').classList.toggle('on', comicEnabled);
-      updatePreview();
     }
 
     // ── Font/Size/Color ────────────────────────────────────────────
     function selectFont(font, el) {
       selectedFont = font;
       el.closest('.option-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
-      updatePreview();
+      el.classList.add('active'); updatePreview();
     }
     function selectSize(size, el) {
       selectedSize = size;
       el.closest('.size-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
-      updatePreview();
+      el.classList.add('active'); updatePreview();
     }
     function selectColor(color, el) {
       selectedColor = color;
       el.closest('.color-group').querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
-      updatePreview();
+      el.classList.add('active'); updatePreview();
     }
 
-    // ── Zoom ───────────────────────────────────────────────────────
+    // ── Zoom (nur vertikal, immer horizontal zentriert) ────────────
     function adjustZoom(delta) {
       zoom = Math.max(1, Math.min(3, zoom + delta));
       document.getElementById('zoomSlider').value = zoom;
-      clampPan(); updatePreview();
+      clampPanY(); updatePreview();
     }
-    function setZoom(val) { zoom = val; clampPan(); updatePreview(); }
-    function clampPan() {
+    function setZoom(val) { zoom = val; clampPanY(); updatePreview(); }
+
+    function clampPanY() {
+      if (!originalImage) return;
       const canvas = document.getElementById('mugCanvas');
-      const W = canvas.width, H = canvas.height;
-      const PAD = Math.round(H * 0.08);
+      const H = canvas.height, PAD = Math.round(H * 0.08);
       const IMG_H = H - PAD * 2;
-      const baseScale = originalImage ? Math.min(W / originalImage.width, IMG_H / originalImage.height) : 1;
-      const scaledW = originalImage ? originalImage.width * baseScale * zoom : W * zoom;
-      const scaledH = originalImage ? originalImage.height * baseScale * zoom : IMG_H * zoom;
-      panX = Math.max(-(scaledW - W) / 2, Math.min((scaledW - W) / 2, panX));
-      panY = Math.max(-(scaledH - IMG_H) / 2, Math.min((scaledH - IMG_H) / 2, panY));
+      const baseScale = Math.min(canvas.width / originalImage.width, IMG_H / originalImage.height);
+      const scaledH = originalImage.height * baseScale * zoom;
+      const maxPanY = Math.max(0, (scaledH - IMG_H) / 2);
+      panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
     }
 
-    // Touch/Mouse drag
+    // Nur vertikales Dragging
     const container = document.getElementById('canvasContainer');
-    container.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; e.preventDefault(); });
+    container.addEventListener('mousedown', e => { isDragging = true; lastY = e.clientY; e.preventDefault(); });
     window.addEventListener('mousemove', e => {
       if (!isDragging) return;
-      panX += e.clientX - lastX; panY += e.clientY - lastY;
-      lastX = e.clientX; lastY = e.clientY;
-      clampPan(); updatePreview();
+      panY += e.clientY - lastY; lastY = e.clientY;
+      clampPanY(); updatePreview();
     });
     window.addEventListener('mouseup', () => isDragging = false);
+
     container.addEventListener('touchstart', e => {
-      if (e.touches.length === 1) { isDragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
+      if (e.touches.length === 1) { isDragging = true; lastY = e.touches[0].clientY; }
       if (e.touches.length === 2) lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
     }, { passive: true });
     container.addEventListener('touchmove', e => {
       if (e.touches.length === 1 && isDragging) {
-        panX += e.touches[0].clientX - lastX; panY += e.touches[0].clientY - lastY;
-        lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
-        clampPan(); updatePreview();
+        panY += e.touches[0].clientY - lastY; lastY = e.touches[0].clientY;
+        clampPanY(); updatePreview();
       }
       if (e.touches.length === 2) {
         const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
         zoom = Math.max(1, Math.min(3, zoom * (dist / lastDist)));
         lastDist = dist;
         document.getElementById('zoomSlider').value = zoom;
-        clampPan(); updatePreview();
+        clampPanY(); updatePreview();
       }
     }, { passive: true });
     container.addEventListener('touchend', () => isDragging = false);
@@ -414,7 +368,7 @@
 
     function handleFile(file) {
       selectedFile = file;
-      zoom = 1; panX = 0; panY = 0;
+      zoom = 1; panY = 0;
       document.getElementById('zoomSlider').value = 1;
       const reader = new FileReader();
       reader.onload = (ev) => {
@@ -437,64 +391,6 @@
       updatePreview();
     });
 
-    // ── Comic Filter ───────────────────────────────────────────────
-    // Sauberer Comic-Effekt: Bilateral-ähnliche Vereinfachung + starke Kanten
-    function applyComicFilter(ctx, W, H, PAD) {
-      const imageData = ctx.getImageData(0, PAD, W, H - PAD * 2);
-      const data = imageData.data;
-      const w = W, h = H - PAD * 2;
-
-      // Schritt 1: Sättigung stark erhöhen
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i], g = data[i+1], b = data[i+2];
-        const max = Math.max(r, g, b), min = Math.min(r, g, b);
-        const l = (max + min) / 2;
-        if (max !== min) {
-          const s = l > 127 ? (max - min) / (510 - max - min) : (max - min) / (max + min);
-          const boost = Math.min(s * 2.5, 1);
-          const gray = 0.299 * r + 0.587 * g + 0.114 * b;
-          data[i]   = Math.min(255, gray + (r - gray) * boost * 2.2);
-          data[i+1] = Math.min(255, gray + (g - gray) * boost * 2.2);
-          data[i+2] = Math.min(255, gray + (b - gray) * boost * 2.2);
-        }
-      }
-
-      // Schritt 2: Posterize auf 5 Stufen für flächige Farben
-      for (let i = 0; i < data.length; i += 4) {
-        data[i]   = Math.round(data[i]   / 51) * 51;
-        data[i+1] = Math.round(data[i+1] / 51) * 51;
-        data[i+2] = Math.round(data[i+2] / 51) * 51;
-      }
-
-      ctx.putImageData(imageData, 0, PAD);
-
-      // Schritt 3: Kanten erkennen und als saubere schwarze Linien zeichnen
-      const edgeData = ctx.getImageData(0, PAD, W, H - PAD * 2);
-      const orig = new Uint8ClampedArray(edgeData.data);
-      const result = new Uint8ClampedArray(edgeData.data);
-
-      for (let y = 2; y < h - 2; y++) {
-        for (let x = 2; x < w - 2; x++) {
-          const i = (y * w + x) * 4;
-          // Grauwerte der Nachbarn für Sobel
-          const gray = (px) => 0.299 * orig[px] + 0.587 * orig[px+1] + 0.114 * orig[px+2];
-          const g = (dx, dy) => gray(((y+dy) * w + (x+dx)) * 4);
-          const gx = -g(-1,-1) - 2*g(-1,0) - g(-1,1) + g(1,-1) + 2*g(1,0) + g(1,1);
-          const gy = -g(-1,-1) - 2*g(0,-1) - g(1,-1) + g(-1,1) + 2*g(0,1) + g(1,1);
-          const edge = Math.sqrt(gx*gx + gy*gy);
-          if (edge > 60) {
-            const strength = Math.min(1, (edge - 60) / 120);
-            result[i]   = Math.round(orig[i]   * (1 - strength));
-            result[i+1] = Math.round(orig[i+1] * (1 - strength));
-            result[i+2] = Math.round(orig[i+2] * (1 - strength));
-            result[i+3] = 255;
-          }
-        }
-      }
-      edgeData.data.set(result);
-      ctx.putImageData(edgeData, 0, PAD);
-    }
-
     // ── Canvas Preview ─────────────────────────────────────────────
     function updatePreview() {
       if (!originalImage) return;
@@ -505,14 +401,16 @@
       const PAD = Math.round(H * 0.08);
       const IMG_H = H - PAD * 2;
 
+      // Weißer Hintergrund
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, W, H);
 
+      // Bild immer horizontal zentriert, nur vertikal verschiebbar
       const baseScale = Math.min(W / originalImage.width, IMG_H / originalImage.height);
       const scale = baseScale * zoom;
       const dw = originalImage.width * scale;
       const dh = originalImage.height * scale;
-      const dx = (W - dw) / 2 + panX;
+      const dx = (W - dw) / 2; // immer zentriert
       const dy = PAD + (IMG_H - dh) / 2 + panY;
 
       ctx.save();
@@ -521,8 +419,6 @@
       ctx.clip();
       ctx.drawImage(originalImage, dx, dy, dw, dh);
       ctx.restore();
-
-      if (comicEnabled) applyComicFilter(ctx, W, H, PAD);
 
       // Text
       const name = document.getElementById('nameInput').value.trim();
@@ -541,7 +437,7 @@
       }
     }
 
-    // ── Submit – schickt Canvas-Inhalt direkt ──────────────────────
+    // ── Submit ─────────────────────────────────────────────────────
     async function submitOrder() {
       if (!selectedFile) { showError('Bitte zuerst ein Foto auswählen! 📸'); return; }
       hideError();
