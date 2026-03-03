@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tasse gestalten – GRAVURALARM</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&family=Bebas+Neue&display=swap');
 
     :root {
       --red: #e8192c;
@@ -128,6 +128,38 @@
     .field input::placeholder { color: #ccc; font-size: 15px; font-weight: 600; }
     .char-hint { text-align: right; font-size: 11px; color: #ccc; margin-top: 4px; font-weight: 600; }
 
+    /* Schriftart-Auswahl */
+    .option-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .option-btn {
+      flex: 1; min-width: 80px;
+      background: var(--cream); border: 2px solid var(--cream-dark);
+      border-radius: 12px; padding: 10px 8px;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; font-size: 13px; font-weight: 700;
+      color: var(--ink);
+    }
+    .option-btn.active { border-color: var(--gold); background: #fff8e0; }
+    .option-btn .opt-preview { font-size: 18px; display: block; margin-bottom: 4px; }
+    .option-btn .opt-label { font-size: 11px; color: var(--gray); font-family: 'Nunito', sans-serif; }
+
+    .font-normal .opt-preview { font-family: 'Nunito', sans-serif; font-weight: 700; }
+    .font-script .opt-preview { font-family: 'Dancing Script', cursive; }
+    .font-bold .opt-preview { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+
+    .size-group { display: flex; gap: 8px; margin-bottom: 12px; }
+    .color-group { display: flex; gap: 8px; margin-bottom: 4px; }
+
+    .color-btn {
+      flex: 1; border-radius: 12px; padding: 12px 8px;
+      border: 2px solid var(--cream-dark); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 13px; font-weight: 800; transition: all 0.2s;
+    }
+    .color-btn.black { background: var(--cream); color: #1a1a1a; }
+    .color-btn.white-btn { background: #1a1a1a; color: white; }
+    .color-btn.active { border-color: var(--gold); }
+    .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); }
+
     .preview-card { display: none; }
     .preview-label { font-size: 12px; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
     #mugCanvas { width: 100%; border-radius: 12px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
@@ -143,6 +175,8 @@
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     .privacy-note { text-align: center; font-size: 11px; color: #bbb; font-weight: 600; }
+    .impressum-link { text-align: center; font-size: 11px; color: #bbb; font-weight: 600; }
+    .impressum-link a { color: #bbb; text-decoration: underline; }
 
     .error-msg {
       background: #fff0f0; border: 2px solid #ffcccc;
@@ -150,7 +184,6 @@
       color: var(--red); font-size: 14px; font-weight: 700; display: none;
     }
 
-    /* Offline Banner */
     .offline-banner {
       background: #fff3cd; border: 2px solid #ffc107;
       border-radius: 12px; padding: 12px 16px;
@@ -236,6 +269,7 @@
     <div class="card">
       <div class="card-number">Schritt 2 · Personalisierung</div>
       <p class="card-title">✍️ Text auf die Tasse (optional)</p>
+
       <div class="field">
         <label>Name</label>
         <input type="text" id="nameInput" placeholder="z.B. Max" maxlength="20" autocomplete="off" autocorrect="off">
@@ -245,6 +279,44 @@
         <label>Zweite Zeile</label>
         <input type="text" id="line2Input" placeholder="z.B. Bester Papa 2024" maxlength="35" autocomplete="off" autocorrect="off">
         <div class="char-hint"><span id="line2Count">0</span>/35</div>
+      </div>
+
+      <div class="field">
+        <label>Schriftart</label>
+        <div class="option-group">
+          <div class="option-btn font-normal active" onclick="selectFont('normal', this)">
+            <span class="opt-preview">Aa</span>
+            <span class="opt-label">Normal</span>
+          </div>
+          <div class="option-btn font-script" onclick="selectFont('script', this)">
+            <span class="opt-preview">Aa</span>
+            <span class="opt-label">Verschnörkelt</span>
+          </div>
+          <div class="option-btn font-bold" onclick="selectFont('bold', this)">
+            <span class="opt-preview">AA</span>
+            <span class="opt-label">Dick</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Schriftgröße</label>
+        <div class="size-group">
+          <div class="option-btn active" onclick="selectSize('small', this)" style="font-size:13px">Klein</div>
+          <div class="option-btn" onclick="selectSize('large', this)" style="font-size:16px">Groß</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Schriftfarbe</label>
+        <div class="color-group">
+          <div class="color-btn black active" onclick="selectColor('black', this)">
+            <div class="color-dot" style="background:#1a1a1a"></div> Schwarz
+          </div>
+          <div class="color-btn white-btn" onclick="selectColor('white', this)">
+            <div class="color-dot" style="background:white"></div> Weiß
+          </div>
+        </div>
       </div>
     </div>
 
@@ -260,6 +332,7 @@
     </button>
 
     <p class="privacy-note">🔒 Dein Foto wird nicht gespeichert oder weitergegeben.</p>
+    <p class="impressum-link"><a href="/impressum.html">Impressum</a></p>
   </main>
 
   <div class="loading-overlay" id="loadingOverlay">
@@ -278,16 +351,43 @@
   </div>
 
   <script>
-    // ── Konfiguration ──────────────────────────────────────────────
-    // Diese URL wird von ngrok Pro vergeben und ändert sich nie mehr.
-    // Nach Einrichten von ngrok Pro hier eintragen:
     const PRINTER_URL = 'https://gravuralarm.ngrok.app';
-    // Beispiel: const PRINTER_URL = 'https://gravuralarm.ngrok.app';
-    // ──────────────────────────────────────────────────────────────
 
     let selectedFile = null;
+    let selectedFont = 'normal';
+    let selectedSize = 'small';
+    let selectedColor = 'black';
 
-    // Drucker erreichbar?
+    const FONTS = {
+      normal: { family: 'Nunito', weight: '700' },
+      script: { family: 'Dancing Script', weight: '700' },
+      bold:   { family: 'Bebas Neue', weight: '400' }
+    };
+
+    function selectFont(font, el) {
+      selectedFont = font;
+      document.querySelectorAll('.option-group .option-btn').forEach(b => {
+        if (b.closest('.field label') === el.closest('.field').querySelector('label') || 
+            el.closest('.option-group') === b.closest('.option-group')) b.classList.remove('active');
+      });
+      el.classList.add('active');
+      updatePreview();
+    }
+
+    function selectSize(size, el) {
+      selectedSize = size;
+      el.closest('.size-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      updatePreview();
+    }
+
+    function selectColor(color, el) {
+      selectedColor = color;
+      el.closest('.color-group').querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      updatePreview();
+    }
+
     async function checkPrinter() {
       try {
         const res = await fetch(`${PRINTER_URL}/ping`, { signal: AbortSignal.timeout(4000) });
@@ -300,9 +400,8 @@
       }
     }
     checkPrinter();
-    setInterval(checkPrinter, 30000); // alle 30 Sek prüfen
+    setInterval(checkPrinter, 30000);
 
-    // ── Foto-Upload ────────────────────────────────────────────────
     ['cameraInput','galleryInput','cameraChangeInput','galleryChangeInput'].forEach(id => {
       document.getElementById(id).addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -323,7 +422,6 @@
       reader.readAsDataURL(file);
     }
 
-    // ── Zeichenzähler ──────────────────────────────────────────────
     document.getElementById('nameInput').addEventListener('input', () => {
       document.getElementById('nameCount').textContent = document.getElementById('nameInput').value.length;
       updatePreview();
@@ -333,38 +431,53 @@
       updatePreview();
     });
 
-    // ── Canvas Vorschau ────────────────────────────────────────────
     function updatePreview() {
       if (!selectedFile) return;
       document.getElementById('previewCard').style.display = 'block';
-      const ctx = mugCanvas.getContext('2d');
+      const canvas = document.getElementById('mugCanvas');
+      const ctx = canvas.getContext('2d');
       const img = new Image();
       img.onload = () => {
-        const W = mugCanvas.width, H = mugCanvas.height;
-        ctx.clearRect(0, 0, W, H);
-        const scale = Math.max(W / img.width, H / img.height);
-        const sw = W / scale, sh = H / scale;
-        const sx = (img.width - sw) / 2, sy = (img.height - sh) / 2;
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+        const W = canvas.width, H = canvas.height;
+        const PAD = Math.round(H * 0.08);
+        const IMG_H = H - PAD * 2;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, W, H);
+
+        const scale = Math.min(W / img.width, IMG_H / img.height);
+        const dw = img.width * scale;
+        const dh = img.height * scale;
+        const dx = (W - dw) / 2;
+        const dy = PAD + (IMG_H - dh) / 2;
+        ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
+
         const name = document.getElementById('nameInput').value.trim();
         const line2 = document.getElementById('line2Input').value.trim();
         if (name || line2) {
-          const barH = line2 ? 120 : 80;
-          const grad = ctx.createLinearGradient(0, H - barH, 0, H);
-          grad.addColorStop(0, 'rgba(0,0,0,0)');
-          grad.addColorStop(1, 'rgba(0,0,0,0.6)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, H - barH, W, barH);
           ctx.textAlign = 'center';
-          ctx.fillStyle = '#fff';
-          if (name) { ctx.font = `bold ${line2 ? 52 : 58}px Arial`; ctx.fillText(name, W/2, H - (line2 ? 48 : 22)); }
-          if (line2) { ctx.font = '32px Arial'; ctx.fillText(line2, W/2, H - 14); }
+          const sizeMultiplier = selectedSize === 'large' ? 1.5 : 1.0;
+          const fontSize1 = Math.round(PAD * 0.55 * sizeMultiplier);
+          const fontSize2 = Math.round(PAD * 0.38 * sizeMultiplier);
+          const fontDef = FONTS[selectedFont];
+          const nameY = line2 ? H - PAD * 0.55 : H - PAD * 0.25;
+          const line2Y = H - PAD * 0.1;
+          const fillColor = selectedColor === 'white' ? '#ffffff' : '#1a1a1a';
+          if (name) {
+            ctx.font = `${fontDef.weight} ${fontSize1}px '${fontDef.family}'`;
+            ctx.fillStyle = fillColor;
+            ctx.fillText(name, W/2, nameY);
+          }
+          if (line2) {
+            ctx.font = `${fontDef.weight} ${fontSize2}px '${fontDef.family}'`;
+            ctx.fillStyle = fillColor;
+            ctx.fillText(line2, W/2, line2Y);
+          }
         }
       };
       img.src = URL.createObjectURL(selectedFile);
     }
 
-    // ── Absenden ───────────────────────────────────────────────────
     async function submitOrder() {
       if (!selectedFile) { showError('Bitte zuerst ein Foto auswählen! 📸'); return; }
       hideError();
@@ -375,6 +488,9 @@
       formData.append('photo', selectedFile);
       formData.append('name', document.getElementById('nameInput').value.trim());
       formData.append('line2', document.getElementById('line2Input').value.trim());
+      formData.append('font', selectedFont);
+      formData.append('fontSize', selectedSize);
+      formData.append('fontColor', selectedColor);
 
       try {
         const res = await fetch(`${PRINTER_URL}/upload`, {
