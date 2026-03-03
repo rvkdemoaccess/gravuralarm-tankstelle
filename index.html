@@ -262,7 +262,6 @@
       bold:   { weight: '400', css: "'Bebas Neue', sans-serif" }
     };
 
-    // ── Foto löschen ───────────────────────────────────────────────
     function deletePhoto() {
       selectedFile = null; originalImage = null;
       zoom = 1; panY = 0;
@@ -277,7 +276,6 @@
       document.getElementById('line2Count').textContent = '0';
     }
 
-    // ── Font/Size/Color ────────────────────────────────────────────
     function selectFont(font, el) {
       selectedFont = font;
       el.closest('.option-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
@@ -294,7 +292,6 @@
       el.classList.add('active'); updatePreview();
     }
 
-    // ── Zoom (nur vertikal, immer horizontal zentriert) ────────────
     function adjustZoom(delta) {
       zoom = Math.max(1, Math.min(3, zoom + delta));
       document.getElementById('zoomSlider').value = zoom;
@@ -313,7 +310,6 @@
       panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
     }
 
-    // Nur vertikales Dragging
     const container = document.getElementById('canvasContainer');
     container.addEventListener('mousedown', e => { isDragging = true; lastY = e.clientY; e.preventDefault(); });
     window.addEventListener('mousemove', e => {
@@ -342,7 +338,6 @@
     }, { passive: true });
     container.addEventListener('touchend', () => isDragging = false);
 
-    // ── Printer Check ──────────────────────────────────────────────
     async function checkPrinter() {
       try {
         const res = await fetch(`${PRINTER_URL}/ping`, { signal: AbortSignal.timeout(4000) });
@@ -357,7 +352,6 @@
     checkPrinter();
     setInterval(checkPrinter, 30000);
 
-    // ── File Upload ────────────────────────────────────────────────
     ['cameraInput','galleryInput','cameraChangeInput','galleryChangeInput'].forEach(id => {
       document.getElementById(id).addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -391,7 +385,6 @@
       updatePreview();
     });
 
-    // ── Canvas Preview ─────────────────────────────────────────────
     function updatePreview() {
       if (!originalImage) return;
       document.getElementById('previewCard').style.display = 'block';
@@ -400,17 +393,16 @@
       const W = canvas.width, H = canvas.height;
       const PAD = Math.round(H * 0.08);
       const IMG_H = H - PAD * 2;
+      const MARGIN = Math.round(W * 0.04);
 
-      // Weißer Hintergrund
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, W, H);
 
-      // Bild immer horizontal zentriert, nur vertikal verschiebbar
       const baseScale = Math.min(W / originalImage.width, IMG_H / originalImage.height);
       const scale = baseScale * zoom;
       const dw = originalImage.width * scale;
       const dh = originalImage.height * scale;
-      const dx = (W - dw) / 2; // immer zentriert
+      const dx = (W - dw) / 2;
       const dy = PAD + (IMG_H - dh) / 2 + panY;
 
       ctx.save();
@@ -420,24 +412,57 @@
       ctx.drawImage(originalImage, dx, dy, dw, dh);
       ctx.restore();
 
-      // Text
       const name = document.getElementById('nameInput').value.trim();
       const line2 = document.getElementById('line2Input').value.trim();
       if (name || line2) {
-        ctx.textAlign = 'center';
         const sizeMultiplier = selectedSize === 'large' ? 1.5 : 1.0;
-        const fontSize1 = Math.round(PAD * 0.55 * sizeMultiplier);
-        const fontSize2 = Math.round(PAD * 0.38 * sizeMultiplier);
+        const fontSize1 = Math.round(IMG_H * 0.13 * sizeMultiplier);
+        const fontSize2 = Math.round(IMG_H * 0.09 * sizeMultiplier);
         const fontDef = FONTS[selectedFont];
-        const nameY = line2 ? H - PAD * 0.55 : H - PAD * 0.25;
-        const line2Y = H - PAD * 0.1;
         const fillColor = selectedColor === 'white' ? '#ffffff' : '#1a1a1a';
-        if (name) { ctx.font = `${fontDef.weight} ${fontSize1}px ${fontDef.css}`; ctx.fillStyle = fillColor; ctx.fillText(name, W/2, nameY); }
-        if (line2) { ctx.font = `${fontDef.weight} ${fontSize2}px ${fontDef.css}`; ctx.fillStyle = fillColor; ctx.fillText(line2, W/2, line2Y); }
+        const bottomMargin = Math.round(IMG_H * 0.06);
+        const maxTextW = W - MARGIN * 2;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, PAD, W, IMG_H);
+        ctx.clip();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+
+        if (name && line2) {
+          ctx.font = `${fontDef.weight} ${fontSize2}px ${fontDef.css}`;
+          ctx.fillStyle = fillColor;
+          scaleText(ctx, line2, maxTextW, W/2, PAD + IMG_H - bottomMargin, fontSize2, fontDef);
+          ctx.font = `${fontDef.weight} ${fontSize1}px ${fontDef.css}`;
+          scaleText(ctx, name, maxTextW, W/2, PAD + IMG_H - bottomMargin - fontSize2 - 6, fontSize1, fontDef);
+        } else if (name) {
+          ctx.font = `${fontDef.weight} ${fontSize1}px ${fontDef.css}`;
+          ctx.fillStyle = fillColor;
+          scaleText(ctx, name, maxTextW, W/2, PAD + IMG_H - bottomMargin, fontSize1, fontDef);
+        } else {
+          ctx.font = `${fontDef.weight} ${fontSize2}px ${fontDef.css}`;
+          ctx.fillStyle = fillColor;
+          scaleText(ctx, line2, maxTextW, W/2, PAD + IMG_H - bottomMargin, fontSize2, fontDef);
+        }
+        ctx.restore();
       }
     }
 
-    // ── Submit ─────────────────────────────────────────────────────
+    function scaleText(ctx, text, maxW, x, y, fontSize, fontDef) {
+      const measured = ctx.measureText(text).width;
+      if (measured > maxW) {
+        ctx.save();
+        const ratio = maxW / measured;
+        ctx.translate(x, y);
+        ctx.scale(ratio, 1);
+        ctx.fillText(text, 0, 0);
+        ctx.restore();
+      } else {
+        ctx.fillText(text, x, y);
+      }
+    }
+
     async function submitOrder() {
       if (!selectedFile) { showError('Bitte zuerst ein Foto auswählen! 📸'); return; }
       hideError();
