@@ -8,94 +8,33 @@
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&family=Bebas+Neue&display=swap');
 
     :root {
-      --red: #e8192c;
-      --gold: #f5a800;
-      --gold-dark: #d99200;
-      --cream: #fff8e8;
-      --cream-dark: #faefc8;
-      --ink: #1a1a1a;
-      --gray: #6b6b6b;
-      --white: #ffffff;
+      --red: #e8192c; --gold: #f5a800; --gold-dark: #d99200;
+      --cream: #fff8e8; --cream-dark: #faefc8;
+      --ink: #1a1a1a; --gray: #6b6b6b; --white: #ffffff;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--cream);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    header {
-      width: 100%;
-      background: var(--white);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 3px solid var(--gold);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    }
-
+    header { width: 100%; background: var(--white); padding: 14px 24px; display: flex; align-items: center; justify-content: center; border-bottom: 3px solid var(--gold); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
     .logo { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; line-height: 1; }
     .logo span:first-child { color: var(--red); }
     .logo span:last-child { color: var(--gold); }
     .header-sub { font-size: 12px; color: var(--gray); text-align: center; margin-top: 4px; font-weight: 600; }
 
-    .hero {
-      width: 100%;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
-      padding: 24px 20px 20px;
-      text-align: center;
-      border-bottom: 2px solid var(--cream-dark);
-    }
-
+    .hero { width: 100%; background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%); padding: 24px 20px 20px; text-align: center; border-bottom: 2px solid var(--cream-dark); }
     .hero h1 { font-size: clamp(20px, 5vw, 26px); font-weight: 900; color: var(--ink); line-height: 1.2; }
     .hero h1 em { font-style: normal; color: var(--red); }
     .hero p { font-size: 14px; color: var(--gray); margin-top: 6px; font-weight: 600; }
+    .free-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--white); font-weight: 800; font-size: 13px; padding: 6px 14px; border-radius: 100px; margin-top: 12px; }
 
-    .free-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--gold); color: var(--white);
-      font-weight: 800; font-size: 13px;
-      padding: 6px 14px; border-radius: 100px; margin-top: 12px;
-    }
+    main { width: 100%; max-width: 480px; padding: 20px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
 
-    main {
-      width: 100%; max-width: 480px;
-      padding: 20px 16px 48px;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-
-    .card {
-      background: var(--white); border-radius: 18px;
-      padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      position: relative;
-    }
-
-    .card-number {
-      position: absolute; top: -12px; left: 18px;
-      background: var(--red); color: white;
-      font-weight: 800; font-size: 11px;
-      padding: 4px 12px; border-radius: 100px;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-
+    .card { background: var(--white); border-radius: 18px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); position: relative; }
+    .card-number { position: absolute; top: -12px; left: 18px; background: var(--red); color: white; font-weight: 800; font-size: 11px; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
     .card-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 14px; }
 
     .upload-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
-
-    .upload-btn {
-      position: relative;
-      background: var(--cream); border: 2px solid var(--cream-dark);
-      border-radius: 14px; padding: 18px 12px;
-      text-align: center; cursor: pointer;
-      transition: all 0.2s; overflow: hidden;
-    }
-
+    .upload-btn { position: relative; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.2s; overflow: hidden; }
     .upload-btn:hover { border-color: var(--gold); background: #fff8e0; }
     .upload-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
     .upload-btn .btn-icon { font-size: 30px; display: block; margin-bottom: 6px; }
@@ -106,109 +45,87 @@
     .preview-wrap { display: none; border-radius: 14px; overflow: hidden; }
     .preview-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
     .change-row { display: flex; gap: 8px; padding: 10px; background: var(--cream); }
-    .change-row button {
-      flex: 1; background: white; border: 2px solid var(--cream-dark);
-      border-radius: 10px; padding: 8px; font-size: 12px; font-weight: 700;
-      cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--ink);
-      transition: border-color 0.2s;
-    }
+    .change-row button { flex: 1; background: white; border: 2px solid var(--cream-dark); border-radius: 10px; padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--ink); transition: border-color 0.2s; }
     .change-row button:hover { border-color: var(--gold); }
     #cameraChangeInput, #galleryChangeInput { display: none; }
 
     .field { margin-bottom: 12px; }
     .field:last-child { margin-bottom: 0; }
     .field label { font-size: 12px; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 6px; }
-    .field input {
-      width: 100%; background: var(--cream); border: 2px solid var(--cream-dark);
-      border-radius: 12px; padding: 14px 16px; font-size: 18px;
-      font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--ink);
-      outline: none; transition: border-color 0.2s;
-    }
-    .field input:focus { border-color: var(--gold); background: white; }
-    .field input::placeholder { color: #ccc; font-size: 15px; font-weight: 600; }
+    .field input[type=text] { width: 100%; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 12px; padding: 14px 16px; font-size: 18px; font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--ink); outline: none; transition: border-color 0.2s; }
+    .field input[type=text]:focus { border-color: var(--gold); background: white; }
+    .field input[type=text]::placeholder { color: #ccc; font-size: 15px; font-weight: 600; }
     .char-hint { text-align: right; font-size: 11px; color: #ccc; margin-top: 4px; font-weight: 600; }
 
-    /* Schriftart-Auswahl */
-    .option-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-    .option-btn {
-      flex: 1; min-width: 80px;
-      background: var(--cream); border: 2px solid var(--cream-dark);
-      border-radius: 12px; padding: 10px 8px;
-      text-align: center; cursor: pointer;
-      transition: all 0.2s; font-size: 13px; font-weight: 700;
-      color: var(--ink);
-    }
+    .option-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .option-btn { flex: 1; min-width: 80px; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 12px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: var(--ink); }
     .option-btn.active { border-color: var(--gold); background: #fff8e0; }
-    .option-btn .opt-preview { font-size: 18px; display: block; margin-bottom: 4px; }
-    .option-btn .opt-label { font-size: 11px; color: var(--gray); font-family: 'Nunito', sans-serif; }
-
+    .opt-preview { font-size: 18px; display: block; margin-bottom: 4px; }
+    .opt-label { font-size: 11px; color: var(--gray); font-family: 'Nunito', sans-serif; display: block; }
     .font-normal .opt-preview { font-family: 'Nunito', sans-serif; font-weight: 700; }
     .font-script .opt-preview { font-family: 'Dancing Script', cursive; }
     .font-bold .opt-preview { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
 
-    .size-group { display: flex; gap: 8px; margin-bottom: 12px; }
-    .color-group { display: flex; gap: 8px; margin-bottom: 4px; }
-
-    .color-btn {
-      flex: 1; border-radius: 12px; padding: 12px 8px;
-      border: 2px solid var(--cream-dark); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      font-size: 13px; font-weight: 800; transition: all 0.2s;
-    }
+    .size-group, .color-group { display: flex; gap: 8px; margin-bottom: 4px; }
+    .color-btn { flex: 1; border-radius: 12px; padding: 12px 8px; border: 2px solid var(--cream-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 800; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .color-btn.black { background: var(--cream); color: #1a1a1a; }
     .color-btn.white-btn { background: #1a1a1a; color: white; }
     .color-btn.active { border-color: var(--gold); }
-    .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); }
+    .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); flex-shrink: 0; }
 
+    /* Comic Toggle */
+    .comic-toggle { display: flex; align-items: center; justify-content: space-between; background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 14px 16px; cursor: pointer; transition: all 0.2s; }
+    .comic-toggle.active { border-color: var(--gold); background: #fff8e0; }
+    .comic-toggle-left { display: flex; align-items: center; gap: 12px; }
+    .comic-toggle-icon { font-size: 28px; }
+    .comic-toggle-text strong { display: block; font-size: 14px; font-weight: 800; color: var(--ink); }
+    .comic-toggle-text span { font-size: 11px; color: var(--gray); font-weight: 600; }
+    .toggle-switch { width: 44px; height: 24px; background: #ddd; border-radius: 12px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle-switch.on { background: var(--gold); }
+    .toggle-switch::after { content: ''; position: absolute; width: 18px; height: 18px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    .toggle-switch.on::after { left: 23px; }
+
+    /* Canvas / Zoom */
     .preview-card { display: none; }
     .preview-label { font-size: 12px; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
-    #mugCanvas { width: 100%; border-radius: 12px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
 
-    .submit-btn {
-      width: 100%; background: var(--gold); color: var(--white);
-      border: none; border-radius: 16px; padding: 18px;
-      font-size: 18px; font-weight: 900; font-family: 'Nunito', sans-serif;
-      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-      transition: all 0.2s; box-shadow: 0 4px 16px rgba(245,168,0,0.4);
+    .canvas-container {
+      position: relative; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      background: white; touch-action: none;
+      cursor: grab;
     }
+    .canvas-container:active { cursor: grabbing; }
+    #mugCanvas { width: 100%; display: block; }
+
+    .zoom-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+    .zoom-btn { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--cream-dark); background: var(--cream); font-size: 18px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); flex-shrink: 0; transition: border-color 0.2s; }
+    .zoom-btn:hover { border-color: var(--gold); }
+    .zoom-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; background: var(--cream-dark); outline: none; }
+    .zoom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--gold); cursor: pointer; }
+    .zoom-hint { text-align: center; font-size: 11px; color: #bbb; margin-top: 6px; font-weight: 600; }
+
+    .submit-btn { width: 100%; background: var(--gold); color: var(--white); border: none; border-radius: 16px; padding: 18px; font-size: 18px; font-weight: 900; font-family: 'Nunito', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; box-shadow: 0 4px 16px rgba(245,168,0,0.4); }
     .submit-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     .privacy-note { text-align: center; font-size: 11px; color: #bbb; font-weight: 600; }
-    .impressum-link { text-align: center; font-size: 11px; color: #bbb; font-weight: 600; }
+    .impressum-link { text-align: center; font-size: 11px; }
     .impressum-link a { color: #bbb; text-decoration: underline; }
 
-    .error-msg {
-      background: #fff0f0; border: 2px solid #ffcccc;
-      border-radius: 12px; padding: 12px 16px;
-      color: var(--red); font-size: 14px; font-weight: 700; display: none;
-    }
+    .error-msg { background: #fff0f0; border: 2px solid #ffcccc; border-radius: 12px; padding: 12px 16px; color: var(--red); font-size: 14px; font-weight: 700; display: none; }
+    .offline-banner { background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 12px 16px; color: #856404; font-size: 13px; font-weight: 700; display: none; text-align: center; }
 
-    .offline-banner {
-      background: #fff3cd; border: 2px solid #ffc107;
-      border-radius: 12px; padding: 12px 16px;
-      color: #856404; font-size: 13px; font-weight: 700;
-      display: none; text-align: center;
-    }
-
-    .loading-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(255,248,232,0.96); z-index: 100;
-      flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-    }
+    .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(255,248,232,0.96); z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
     .loading-overlay.visible { display: flex; }
     .spinner { width: 56px; height: 56px; border: 5px solid var(--cream-dark); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.9s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-overlay p { font-size: 16px; font-weight: 700; color: var(--ink); text-align: center; }
 
-    .success-screen {
-      display: none; position: fixed; inset: 0; background: var(--cream); z-index: 200;
-      flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 40px; gap: 18px;
-    }
+    .success-screen { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; gap: 18px; }
     .success-screen.visible { display: flex; }
     .success-icon { font-size: 80px; animation: pop 0.5s ease; }
-    @keyframes pop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    @keyframes pop { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
     .success-screen h2 { font-size: 28px; font-weight: 900; color: var(--ink); }
     .success-screen h2 em { font-style: normal; color: var(--red); }
     .success-screen p { color: var(--gray); font-size: 16px; font-weight: 600; max-width: 280px; line-height: 1.5; }
@@ -231,15 +148,11 @@
   </div>
 
   <main>
-
-    <div class="offline-banner" id="offlineBanner">
-      ⚠️ Drucker gerade nicht erreichbar – bitte Personal ansprechen.
-    </div>
+    <div class="offline-banner" id="offlineBanner">⚠️ Drucker gerade nicht erreichbar – bitte Personal ansprechen.</div>
 
     <div class="card">
       <div class="card-number">Schritt 1 · Foto wählen</div>
       <p class="card-title">📸 Dein Lieblingsfoto</p>
-
       <div class="upload-buttons" id="uploadButtons">
         <div class="upload-btn primary">
           <input type="file" id="cameraInput" accept="image/*" capture="environment">
@@ -254,7 +167,6 @@
           <div class="btn-sub">Foto auswählen</div>
         </div>
       </div>
-
       <div class="preview-wrap" id="previewWrap">
         <img id="photoPreview" src="" alt="Vorschau">
         <div class="change-row">
@@ -267,9 +179,23 @@
     </div>
 
     <div class="card">
-      <div class="card-number">Schritt 2 · Personalisierung</div>
-      <p class="card-title">✍️ Text auf die Tasse (optional)</p>
+      <div class="card-number">Schritt 2 · Stil wählen</div>
+      <p class="card-title">🎨 Bildstil</p>
+      <div class="comic-toggle" id="comicToggle" onclick="toggleComic()">
+        <div class="comic-toggle-left">
+          <div class="comic-toggle-icon">💥</div>
+          <div class="comic-toggle-text">
+            <strong>Comic-Style</strong>
+            <span>Verwandelt dein Foto in einen Comic</span>
+          </div>
+        </div>
+        <div class="toggle-switch" id="toggleSwitch"></div>
+      </div>
+    </div>
 
+    <div class="card">
+      <div class="card-number">Schritt 3 · Personalisierung</div>
+      <p class="card-title">✍️ Text auf die Tasse (optional)</p>
       <div class="field">
         <label>Name</label>
         <input type="text" id="nameInput" placeholder="z.B. Max" maxlength="20" autocomplete="off" autocorrect="off">
@@ -280,33 +206,27 @@
         <input type="text" id="line2Input" placeholder="z.B. Bester Papa 2026" maxlength="35" autocomplete="off" autocorrect="off">
         <div class="char-hint"><span id="line2Count">0</span>/35</div>
       </div>
-
       <div class="field">
         <label>Schriftart</label>
         <div class="option-group">
           <div class="option-btn font-normal active" onclick="selectFont('normal', this)">
-            <span class="opt-preview">Aa</span>
-            <span class="opt-label">Normal</span>
+            <span class="opt-preview">Aa</span><span class="opt-label">Normal</span>
           </div>
           <div class="option-btn font-script" onclick="selectFont('script', this)">
-            <span class="opt-preview">Aa</span>
-            <span class="opt-label">Verschnörkelt</span>
+            <span class="opt-preview">Aa</span><span class="opt-label">Verschnörkelt</span>
           </div>
           <div class="option-btn font-bold" onclick="selectFont('bold', this)">
-            <span class="opt-preview">AA</span>
-            <span class="opt-label">Dick</span>
+            <span class="opt-preview">AA</span><span class="opt-label">Dick</span>
           </div>
         </div>
       </div>
-
       <div class="field">
         <label>Schriftgröße</label>
         <div class="size-group">
-          <div class="option-btn active" onclick="selectSize('small', this)" style="font-size:13px">Klein</div>
+          <div class="option-btn active" onclick="selectSize('small', this)">Klein</div>
           <div class="option-btn" onclick="selectSize('large', this)" style="font-size:16px">Groß</div>
         </div>
       </div>
-
       <div class="field">
         <label>Schriftfarbe</label>
         <div class="color-group">
@@ -322,7 +242,15 @@
 
     <div class="card preview-card" id="previewCard">
       <p class="preview-label">☕ Vorschau deiner Tasse</p>
-      <canvas id="mugCanvas" width="960" height="430"></canvas>
+      <div class="canvas-container" id="canvasContainer">
+        <canvas id="mugCanvas" width="960" height="430"></canvas>
+      </div>
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="adjustZoom(-0.1)">−</button>
+        <input type="range" class="zoom-slider" id="zoomSlider" min="1" max="3" step="0.05" value="1" oninput="setZoom(parseFloat(this.value))">
+        <button class="zoom-btn" onclick="adjustZoom(0.1)">+</button>
+      </div>
+      <p class="zoom-hint">🤏 Zoomen & ziehen um den Bildausschnitt zu wählen</p>
     </div>
 
     <div class="error-msg" id="errorMsg"></div>
@@ -354,33 +282,46 @@
     const PRINTER_URL = 'https://gravuralarm.ngrok.app';
 
     let selectedFile = null;
+    let comicEnabled = false;
     let selectedFont = 'normal';
     let selectedSize = 'small';
     let selectedColor = 'black';
 
+    // Zoom & Pan state
+    let zoom = 1;
+    let panX = 0, panY = 0;
+    let isDragging = false;
+    let lastX = 0, lastY = 0;
+    let lastDist = 0;
+    let originalImage = null;
+
     const FONTS = {
-      normal: { family: 'Nunito', weight: '700' },
-      script: { family: 'Dancing Script', weight: '700' },
-      bold:   { family: 'Bebas Neue', weight: '400' }
+      normal: { family: 'Nunito', weight: '700', css: "'Nunito', sans-serif" },
+      script: { family: 'Dancing Script', weight: '700', css: "'Dancing Script', cursive" },
+      bold:   { family: 'Bebas Neue', weight: '400', css: "'Bebas Neue', sans-serif" }
     };
 
-    function selectFont(font, el) {
-      selectedFont = font;
-      document.querySelectorAll('.option-group .option-btn').forEach(b => {
-        if (b.closest('.field label') === el.closest('.field').querySelector('label') || 
-            el.closest('.option-group') === b.closest('.option-group')) b.classList.remove('active');
-      });
-      el.classList.add('active');
+    // ── Comic Toggle ───────────────────────────────────────────────
+    function toggleComic() {
+      comicEnabled = !comicEnabled;
+      document.getElementById('comicToggle').classList.toggle('active', comicEnabled);
+      document.getElementById('toggleSwitch').classList.toggle('on', comicEnabled);
       updatePreview();
     }
 
+    // ── Font/Size/Color ────────────────────────────────────────────
+    function selectFont(font, el) {
+      selectedFont = font;
+      el.closest('.option-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      updatePreview();
+    }
     function selectSize(size, el) {
       selectedSize = size;
       el.closest('.size-group').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
       updatePreview();
     }
-
     function selectColor(color, el) {
       selectedColor = color;
       el.closest('.color-group').querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
@@ -388,6 +329,61 @@
       updatePreview();
     }
 
+    // ── Zoom ───────────────────────────────────────────────────────
+    function adjustZoom(delta) {
+      zoom = Math.max(1, Math.min(3, zoom + delta));
+      document.getElementById('zoomSlider').value = zoom;
+      clampPan();
+      updatePreview();
+    }
+    function setZoom(val) {
+      zoom = val;
+      clampPan();
+      updatePreview();
+    }
+    function clampPan() {
+      const canvas = document.getElementById('mugCanvas');
+      const W = canvas.width, H = canvas.height;
+      const PAD = Math.round(H * 0.08);
+      const IMG_H = H - PAD * 2;
+      const maxPanX = (W * zoom - W) / 2;
+      const maxPanY = (IMG_H * zoom - IMG_H) / 2;
+      panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+      panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+    }
+
+    // Touch/Mouse drag
+    const container = document.getElementById('canvasContainer');
+    container.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      panX += e.clientX - lastX; panY += e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      clampPan(); updatePreview();
+    });
+    window.addEventListener('mouseup', () => isDragging = false);
+
+    container.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) { isDragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
+      if (e.touches.length === 2) { lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
+    }, { passive: true });
+    container.addEventListener('touchmove', e => {
+      if (e.touches.length === 1 && isDragging) {
+        panX += e.touches[0].clientX - lastX; panY += e.touches[0].clientY - lastY;
+        lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+        clampPan(); updatePreview();
+      }
+      if (e.touches.length === 2) {
+        const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        zoom = Math.max(1, Math.min(3, zoom * (dist / lastDist)));
+        lastDist = dist;
+        document.getElementById('zoomSlider').value = zoom;
+        clampPan(); updatePreview();
+      }
+    }, { passive: true });
+    container.addEventListener('touchend', () => isDragging = false);
+
+    // ── Printer Check ──────────────────────────────────────────────
     async function checkPrinter() {
       try {
         const res = await fetch(`${PRINTER_URL}/ping`, { signal: AbortSignal.timeout(4000) });
@@ -402,6 +398,7 @@
     checkPrinter();
     setInterval(checkPrinter, 30000);
 
+    // ── File Upload ────────────────────────────────────────────────
     ['cameraInput','galleryInput','cameraChangeInput','galleryChangeInput'].forEach(id => {
       document.getElementById(id).addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -412,12 +409,16 @@
 
     function handleFile(file) {
       selectedFile = file;
+      zoom = 1; panX = 0; panY = 0;
+      document.getElementById('zoomSlider').value = 1;
       const reader = new FileReader();
       reader.onload = (ev) => {
         document.getElementById('photoPreview').src = ev.target.result;
         document.getElementById('uploadButtons').style.display = 'none';
         document.getElementById('previewWrap').style.display = 'block';
-        updatePreview();
+        originalImage = new Image();
+        originalImage.onload = () => updatePreview();
+        originalImage.src = ev.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -431,86 +432,134 @@
       updatePreview();
     });
 
+    // ── Comic Filter (Canvas) ──────────────────────────────────────
+    function applyComicFilter(ctx, W, H) {
+      const imageData = ctx.getImageData(0, 0, W, H);
+      const data = imageData.data;
+      // Sättigung erhöhen + Posterize (Farben vereinfachen)
+      for (let i = 0; i < data.length; i += 4) {
+        // Posterize auf 4 Stufen
+        data[i]   = Math.round(data[i]   / 64) * 64;
+        data[i+1] = Math.round(data[i+1] / 64) * 64;
+        data[i+2] = Math.round(data[i+2] / 64) * 64;
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      // Kanten als schwarze Linien (Edge detection vereinfacht)
+      const edgeData = ctx.getImageData(0, 0, W, H);
+      const orig = new Uint8ClampedArray(edgeData.data);
+      for (let y = 1; y < H - 1; y++) {
+        for (let x = 1; x < W - 1; x++) {
+          const i = (y * W + x) * 4;
+          const iUp = ((y-1) * W + x) * 4;
+          const iDown = ((y+1) * W + x) * 4;
+          const iLeft = (y * W + (x-1)) * 4;
+          const iRight = (y * W + (x+1)) * 4;
+          const gx = Math.abs(orig[iRight] - orig[iLeft]) + Math.abs(orig[iRight+1] - orig[iLeft+1]) + Math.abs(orig[iRight+2] - orig[iLeft+2]);
+          const gy = Math.abs(orig[iDown] - orig[iUp]) + Math.abs(orig[iDown+1] - orig[iUp+1]) + Math.abs(orig[iDown+2] - orig[iUp+2]);
+          const edge = (gx + gy) / 3;
+          if (edge > 80) {
+            edgeData.data[i] = 0; edgeData.data[i+1] = 0; edgeData.data[i+2] = 0; edgeData.data[i+3] = 200;
+          }
+        }
+      }
+      ctx.putImageData(edgeData, 0, 0);
+    }
+
+    // ── Canvas Preview ─────────────────────────────────────────────
     function updatePreview() {
-      if (!selectedFile) return;
+      if (!originalImage) return;
       document.getElementById('previewCard').style.display = 'block';
       const canvas = document.getElementById('mugCanvas');
       const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.onload = () => {
-        const W = canvas.width, H = canvas.height;
-        const PAD = Math.round(H * 0.08);
-        const IMG_H = H - PAD * 2;
+      const W = canvas.width, H = canvas.height;
+      const PAD = Math.round(H * 0.08);
+      const IMG_H = H - PAD * 2;
 
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, W, H);
 
-        const scale = Math.min(W / img.width, IMG_H / img.height);
-        const dw = img.width * scale;
-        const dh = img.height * scale;
-        const dx = (W - dw) / 2;
-        const dy = PAD + (IMG_H - dh) / 2;
-        ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
+      // Bild mit Zoom & Pan zeichnen
+      const baseScale = Math.min(W / originalImage.width, IMG_H / originalImage.height);
+      const scale = baseScale * zoom;
+      const dw = originalImage.width * scale;
+      const dh = originalImage.height * scale;
+      const dx = (W - dw) / 2 + panX;
+      const dy = PAD + (IMG_H - dh) / 2 + panY;
 
-        const name = document.getElementById('nameInput').value.trim();
-        const line2 = document.getElementById('line2Input').value.trim();
-        if (name || line2) {
-          ctx.textAlign = 'center';
-          const sizeMultiplier = selectedSize === 'large' ? 1.5 : 1.0;
-          const fontSize1 = Math.round(PAD * 0.55 * sizeMultiplier);
-          const fontSize2 = Math.round(PAD * 0.38 * sizeMultiplier);
-          const fontDef = FONTS[selectedFont];
-          const nameY = line2 ? H - PAD * 0.55 : H - PAD * 0.25;
-          const line2Y = H - PAD * 0.1;
-          const fillColor = selectedColor === 'white' ? '#ffffff' : '#1a1a1a';
-          if (name) {
-            ctx.font = `${fontDef.weight} ${fontSize1}px '${fontDef.family}'`;
-            ctx.fillStyle = fillColor;
-            ctx.fillText(name, W/2, nameY);
-          }
-          if (line2) {
-            ctx.font = `${fontDef.weight} ${fontSize2}px '${fontDef.family}'`;
-            ctx.fillStyle = fillColor;
-            ctx.fillText(line2, W/2, line2Y);
-          }
-        }
-      };
-      img.src = URL.createObjectURL(selectedFile);
+      ctx.save();
+      ctx.rect(0, PAD, W, IMG_H);
+      ctx.clip();
+      ctx.drawImage(originalImage, 0, 0, originalImage.width, originalImage.height, dx, dy, dw, dh);
+      ctx.restore();
+
+      // Comic Filter
+      if (comicEnabled) {
+        ctx.save();
+        ctx.rect(0, PAD, W, IMG_H);
+        ctx.clip();
+        applyComicFilter(ctx, W, H);
+        ctx.restore();
+      }
+
+      // Text
+      const name = document.getElementById('nameInput').value.trim();
+      const line2 = document.getElementById('line2Input').value.trim();
+      if (name || line2) {
+        ctx.textAlign = 'center';
+        const sizeMultiplier = selectedSize === 'large' ? 1.5 : 1.0;
+        const fontSize1 = Math.round(PAD * 0.55 * sizeMultiplier);
+        const fontSize2 = Math.round(PAD * 0.38 * sizeMultiplier);
+        const fontDef = FONTS[selectedFont];
+        const nameY = line2 ? H - PAD * 0.55 : H - PAD * 0.25;
+        const line2Y = H - PAD * 0.1;
+        const fillColor = selectedColor === 'white' ? '#ffffff' : '#1a1a1a';
+        if (name) { ctx.font = `${fontDef.weight} ${fontSize1}px ${fontDef.css}`; ctx.fillStyle = fillColor; ctx.fillText(name, W/2, nameY); }
+        if (line2) { ctx.font = `${fontDef.weight} ${fontSize2}px ${fontDef.css}`; ctx.fillStyle = fillColor; ctx.fillText(line2, W/2, line2Y); }
+      }
     }
 
+    // ── Submit ─────────────────────────────────────────────────────
     async function submitOrder() {
       if (!selectedFile) { showError('Bitte zuerst ein Foto auswählen! 📸'); return; }
       hideError();
-      document.getElementById('loadingOverlay').classList.add('visible');
-      document.getElementById('submitBtn').disabled = true;
 
-      const formData = new FormData();
-      formData.append('photo', selectedFile);
-      formData.append('name', document.getElementById('nameInput').value.trim());
-      formData.append('line2', document.getElementById('line2Input').value.trim());
-      formData.append('font', selectedFont);
-      formData.append('fontSize', selectedSize);
-      formData.append('fontColor', selectedColor);
+      // Canvas als Blob exportieren – enthält exakt was der Kunde sieht
+      const canvas = document.getElementById('mugCanvas');
+      canvas.toBlob(async (blob) => {
+        document.getElementById('loadingOverlay').classList.add('visible');
+        document.getElementById('submitBtn').disabled = true;
 
-      try {
-        const res = await fetch(`${PRINTER_URL}/upload`, {
-          method: 'POST',
-          body: formData,
-          signal: AbortSignal.timeout(30000)
-        });
-        const data = await res.json();
-        document.getElementById('loadingOverlay').classList.remove('visible');
-        if (data.success) {
-          document.getElementById('successScreen').classList.add('visible');
-        } else {
-          showError(data.error || 'Fehler. Bitte erneut versuchen.');
+        const formData = new FormData();
+        formData.append('photo', blob, 'tasse.png');
+        formData.append('name', document.getElementById('nameInput').value.trim());
+        formData.append('line2', document.getElementById('line2Input').value.trim());
+        formData.append('font', selectedFont);
+        formData.append('fontSize', selectedSize);
+        formData.append('fontColor', selectedColor);
+        formData.append('comic', comicEnabled ? '1' : '0');
+        formData.append('zoom', zoom.toString());
+        formData.append('panX', panX.toString());
+        formData.append('panY', panY.toString());
+        formData.append('canvasWidth', canvas.width.toString());
+        formData.append('canvasHeight', canvas.height.toString());
+
+        try {
+          const res = await fetch(`${PRINTER_URL}/upload`, { method: 'POST', body: formData, signal: AbortSignal.timeout(30000) });
+          const data = await res.json();
+          document.getElementById('loadingOverlay').classList.remove('visible');
+          if (data.success) {
+            document.getElementById('successScreen').classList.add('visible');
+          } else {
+            showError(data.error || 'Fehler. Bitte erneut versuchen.');
+            document.getElementById('submitBtn').disabled = false;
+          }
+        } catch {
+          document.getElementById('loadingOverlay').classList.remove('visible');
+          showError('Verbindungsfehler. Bitte Personal ansprechen.');
           document.getElementById('submitBtn').disabled = false;
         }
-      } catch {
-        document.getElementById('loadingOverlay').classList.remove('visible');
-        showError('Verbindungsfehler. Bitte Personal ansprechen.');
-        document.getElementById('submitBtn').disabled = false;
-      }
+      }, 'image/png');
     }
 
     function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = '⚠️ ' + msg; el.style.display = 'block'; }
